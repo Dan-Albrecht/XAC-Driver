@@ -1,29 +1,40 @@
 #pragma once
+#include <stdint.h>
+#include <XacInput.h>
 
-// Define a pin to -1 for unmapped. Code will just ignore any input for it.
-#define BUTTON_A            -1
-#define BUTTON_B            -1
-#define BUTTON_X            -1
-#define BUTTON_Y            -1
-#define BUTTON_SELECT       -1  // Whatever they're calling the button on the left these days
-#define BUTTON_START        -1  // And whatever is on the right now
-#define BUTTON_LEFT_CLICK   -1  // Clicking the left stick
-#define BUTTON_RIGHT_CLICK  -1  // Clicking the right stick
-#define BUTTON_NEXUS        -1  // The glowing Xbox button
-#define BUTTON_LEFT_BUMPER  -1
-#define BUTTON_RIGHT_BUMPER -1
+class PinAssignment
+{
+private:
+    PinAssignment() {}
 
-#define TRIGGER_LEFT        -1
-#define TRIGGER_RIGHT       -1
+public:
+    // Maps a button to an assigned pin. Returns -1 if unmapped.
+    static u_char MapToPin(XacButton button)
+    {
+        switch (button)
+        {
+        case XacButton::A:
+            return -1;
+            break;
 
-// X & Y axis of the left & right joysticks
-#define STICK_LEFT_X        -1
-#define STICK_LEFT_Y        -1
-#define STICK_RIGHT_X       -1
-#define STICK_RIGHT_Y       -1
+        default:
+            return -1;
+            break;
+        }
+    }
 
-// D-pad buttons
-#define BUTTON_D_LEFT       -1
-#define BUTTON_D_RIGHT      -1
-#define BUTTON_D_UP         -1
-#define BUTTON_D_DOWN       -1
+    // Maps an axis to an assigned pin. Returns -1 if unmapped.
+    static u_char MapToPin(XacAxis axis)
+    {
+        switch (axis)
+        {
+        case XacAxis::LeftStickX:
+            return -1;
+            break;
+
+        default:
+            return -1;
+            break;
+        }
+    }
+};

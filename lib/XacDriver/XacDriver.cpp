@@ -1,4 +1,5 @@
 #include "XacDriver.h"
+#include "..\..\include\PinAssignment.h"
 
 XacDriver::XacDriver()
 {
@@ -8,24 +9,43 @@ XacDriver::~XacDriver()
 {
 }
 
-void XacDriver::PushButton(int16_t button)
+void XacDriver::PushButton(XacButton button)
 {
     Serial.printf("Button press 0x%X\n", button);
 }
 
-void XacDriver::PullTrigger(XacInput input, u_char ammount)
+void XacDriver::PullTrigger(XacAxis input, uint8_t ammount)
 {
+    u_char pin = PinAssignment::MapToPin(input);
+    if (pin < 0)
+    {
+        return;
+    }
 
+    if(ammount > 100)
+    {
+        ammount=100;
+    }
+
+    // Dumb now, just all or nothing
+    if (ammount > 0)
+    {
+        // ammount *= 2.5;
+        //dacWrite(pin, ammount);
+        digitalWrite(pin, 1);
+    }
+    else
+    {
+        digitalWrite(pin, 0);
+    }
 }
 
-void XacDriver::MoveJoystick(XacInput xInput, u_char xAmmount, XacInput yInput, u_char yAmmount)
+void XacDriver::MoveJoystick(XacAxis xInput, uint8_t xAmmount, XacAxis yInput, uint8_t yAmmount)
 {
-
 }
 
 void XacDriver::BeginSimultaneousInput()
 {
-
 }
 
 void XacDriver::EndSimultaneousInput()

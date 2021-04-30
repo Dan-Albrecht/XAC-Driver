@@ -1,5 +1,4 @@
 #pragma once
-#include <stdint.h>
 #include <Arduino.h>
 #include "XacInput.h"
 
@@ -9,9 +8,9 @@ private:
 public:
     XacDriver();
     ~XacDriver();
-    void PushButton(int16_t button);
-    void PullTrigger(XacInput input, u_char ammount);
-    void MoveJoystick(XacInput xInput, u_char xAmmount, XacInput yInput, u_char yAmmount);
+    void PushButton(XacButton button);
+    void PullTrigger(XacAxis input, uint8_t ammount);
+    void MoveJoystick(XacAxis xInput, uint8_t xAmmount, XacAxis yInput, uint8_t yAmmount);
     
     // Begins queueing all commands to be sent at the end call
     void BeginSimultaneousInput();
